@@ -184,7 +184,7 @@ def r_ply(type_):
             [
                 InlineKeyboardButton("Playlist 📖", "playlist"),
             ],
-            [InlineKeyboardButton("❌ Close", "cls")],
+            [InlineKeyboardButton("⚠ Close ⚠", "cls")],
         ]
     )
     return mar
@@ -416,7 +416,7 @@ async def m_cb(b, cb):
                 await callsmusic.set_stream(
                     chet_id, queues.get(chet_id)["file"]
                 )
-                await cb.answer.reply_text("✅ <b>Skipped</b>")
+                await cb.answer.reply_text("✅ <b>Done Skipped !</b>")
                 await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
                 await cb.message.reply_text(
                     f"- Skipped track\n- Now Playing **{qeue[0][0]}**"
@@ -430,7 +430,7 @@ async def m_cb(b, cb):
                 pass
 
             await callsmusic.stop(chet_id)
-            await cb.message.edit("Successfully Left the Chat!")
+            await cb.message.edit("Successfully Left!")
         else:
             await cb.answer("Chat is not connected!", show_alert=True)
 
@@ -441,7 +441,7 @@ async def play(_, message: Message):
     global useer
     if message.chat.id in DISABLED_GROUPS:
         return    
-    lel = await message.reply("🔄 <b>Processing</b>")
+    lel = await message.reply("🔄 <b>Processing..</b>")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
 
@@ -496,7 +496,7 @@ async def play(_, message: Message):
         )
         return
     text_links=None
-    await lel.edit("🔎 <b>Finding</b>")
+    await lel.edit("🔎 <b>Finding..</b>")
     if message.reply_to_message:
         if message.reply_to_message.audio:
             pass
@@ -526,16 +526,16 @@ async def play(_, message: Message):
     if audio:
         if round(audio.duration / 60) > DURATION_LIMIT:
             await lel.edit(
-                f"❌ Videos longer than {DURATION_LIMIT} minute(s) aren't allowed to play!"
+                f"⚠ Videos longer than {DURATION_LIMIT} minute(s) aren't allowed to play!"
             )
             return
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📖 Playlist", callback_data="playlist"),
-                    InlineKeyboardButton("Menu ⏯ ", callback_data="menu"),
+                    InlineKeyboardButton("💠 Playlist", callback_data="playlist"),
+                    InlineKeyboardButton("Menu ⚜ ", callback_data="menu"),
                 ],
-                [InlineKeyboardButton(text="❌ Close", callback_data="cls")],
+                [InlineKeyboardButton(text="⚠ Close", callback_data="cls")],
             ]
         )
         file_name = get_file_name(audio)
@@ -553,7 +553,7 @@ async def play(_, message: Message):
         )
     elif urls:
         query = toxt
-        await lel.edit("🎵 <b>Processing</b>")
+        await lel.edit("🎵 <b>Hang On..</b>")
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -580,7 +580,7 @@ async def play(_, message: Message):
                 dur += (int(dur_arr[i]) * secmul)
                 secmul *= 60
             if (dur / 60) > DURATION_LIMIT:
-                 await lel.edit(f"❌ Videos longer than {DURATION_LIMIT} minutes aren't allowed to play!")
+                 await lel.edit(f"�⚠ Why not you listen ? Videos longer than {DURATION_LIMIT} minutes aren't allowed to play!")
                  return
         except:
             pass        
@@ -589,14 +589,14 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📖 Playlist", callback_data="playlist"),
-                    InlineKeyboardButton("Menu ⏯ ", callback_data="menu"),
+                    InlineKeyboardButton("�💠Playlist", callback_data="playlist"),
+                    InlineKeyboardButton("Menu ⚜ ", callback_data="menu"),
                 ],
                 [
                     InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
                     InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
                 ],
-                [InlineKeyboardButton(text="❌ Close", callback_data="cls")],
+                [InlineKeyboardButton(text="🔶 Close", callback_data="cls")],
             ]
         )
         requested_by = message.from_user.first_name
